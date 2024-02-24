@@ -1,0 +1,50 @@
+const toBool = (x) => x == 'true'
+const { existsSync } = require('fs')
+const { Sequelize } = require('sequelize');
+if (existsSync('config.env')) require('dotenv').config({ path: './config.env' })
+process.env.NODE_OPTIONS = '--max_old_space_size=2560'//2.5
+const DB_URL =  process.env.DATABASE_URL || '';
+module.exports = {
+    SESSION_ID: process.env.SESSION_ID || 'alpha~ce82eee43ac83f39ffe007ffe4b3ade4', //your ssid to run bot
+    HEROKU: {
+        API_KEY: process.env.HEROKU_API_KEY,
+        APP_NAME: process.env.HEROKU_APP_NAME
+    },
+    PORT: process.env.PORT || 4600,
+    BASE_URL : "https://upper-romy-inrl-bot.koyeb.app/",
+    REPO: "Primi373-creator/inrl-bot-md",
+    BGM_URL : process.env.BGM_URL || "null",
+    REJECT_CALL : toBool(process.env.REJECT_CALL || 'true'),
+    BADWORD_BLOCK : toBool(process.env.BADWORD_BLOCK || 'false'),
+    ALLWAYS_ONLINE: toBool(process.env.ALLWAYS_ONLINE || "true"),
+    PM_BLOCK : toBool(process.env.PM_BLOCK || "false"),
+    BGMBOT : toBool(process.env.BGMBOT || "false"),
+    CALL_BLOCK : toBool(process.env.CALL_BLOCK || "false"),
+    STATUS_VIEW : process.env.STATUS_VIEW || "true",
+    SAVE_STATUS : toBool(process.env.SAVE_STATUS || "true"),
+    ADMIN_SUDO_ACCESS: toBool(process.env.ADMIN_SUDO_ACCESS || "true"),
+    DISABLE_PM: toBool(process.env.DISABLE_PM || "false"),
+    DISABLE_GRP : toBool(process.env.DISABLE_GRP || "false"),
+    ERROR_MSG : toBool(process.env.ERROR_MSG || "true"),
+    AJOIN: toBool(process.env.AJOIN || 'false'),
+    READ : process.env.READ ||  "false",//true, command
+    CHATBOT : process.env.CHATBOT || "false",//true, pm, group
+    REACT : process.env.REACT || "false",//true, command, emoji
+    WARNCOUND : process.env.WARNCOUND || 5,
+    BOT_INFO : process.env.BOT_INFO || "Alpha-md;Cipher;https://i.pinimg.com/originals/b7/70/dc/b770dcc280cc2b1a7938aa1339d848aa.jpg",
+    WORKTYPE : process.env.WORKTYPE || "private",
+    PREFIX : process.env.PREFIX || "#",//both  .  and [.] equal, for multi prefix we use [] this
+    LANG : process.env.LANG || "en",
+    PERSONAL_MESSAGE: process.env.PERSONAL_MESSAGE || "null",
+    BOT_PRESENCE : process.env.BOT_PRESENCE || "available",
+    AUDIO_DATA : process.env.AUDIO_DATA || "Alpha-md;cipher;https://i.pinimg.com/originals/b7/70/dc/b770dcc280cc2b1a7938aa1339d848aa.jpg",
+    STICKER_DATA : process.env.STICKER_DATA || "Alpha-md;cipher",
+    BRAINSHOP: process.env.BRAINSHOP || '172372,nbjE0YAlyw3cpoMl',
+    SUDO : process.env.SUDO || "2349150690169",
+    RMBG_KEY: process.env.RMBG_KEY,
+    OPEN_AI: process.env.OPEN_AI,
+    ELEVENLABS: process.env.ELEVENLABS,
+    INRL_KEY: process.env.INRL_KEY || 'free50_inrl',
+    OCR_KEY: (process.env.OCR_KEY || 'K84003107488957').trim(),
+    DATABASE: DB_URL ? new Sequelize(DB_URL,{dialect:'postgres',ssl:true,protocol: 'postgres', dialectOptions: {native: true,ssl:{require: true,rejectUnauthorized: false}}, logging: false}) : new Sequelize({dialect:'sqlite',storage:'./database.db',logging:false}) 
+};
